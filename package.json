@@ -1,0 +1,33 @@
+{
+  "name": "chatbot-template",
+  "version": "1.0.0",
+  "description": "Boiler-plate for fb chatbot using node+express+vue",
+  "main": "app.js",
+  "scripts": {
+    "start": "node bin/server.js",
+    "dev": "npm run build-web && node bin/server.js",
+    "build-web": "node web/build/build.js",
+    "push": "npm run build-web && git add . && git commit -m 'App deployment' && git pull && git push origin master",
+    "deploy-heroku": "npm run build-web && git add . && git commit -m 'App deployment' && git pull && git push heroku master"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abalita/chatbot-template.git"
+  },
+  "author": "Ariel Balita",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abalita/chatbot-template/issues"
+  },
+  "homepage": "https://github.com/abalita/chatbot-template#readme",
+  "dependencies": {
+    "async": "^2.6.0",
+    "axios": "^0.17.1",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.13.10",
+    "morgan": "^1.9.0"
+  }
+}
