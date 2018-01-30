@@ -4,11 +4,11 @@
   "description": "Boiler-plate for fb chatbot using node+express+vue",
   "main": "app.js",
   "scripts": {
+    "install-all": "npm --prefix ./web install ./web && npm install",
+    "build": "node web/build/build.js",
     "start": "node bin/server.js",
-    "dev": "npm run build-web && node bin/server.js",
-    "build-web": "node web/build/build.js",
-    "push": "npm run build-web && git add . && git commit -m 'App deployment' && git pull && git push origin master",
-    "deploy-heroku": "npm run build-web && git add . && git commit -m 'App deployment' && git pull && git push heroku master"
+    "push": "npm run build && git add . && git commit -m 'App deployment' && git pull && git push origin master",
+    "deploy-heroku": "npm run build && git add . && git commit -m 'App deployment' && git pull && git push heroku master"
   },
   "repository": {
     "type": "git",
