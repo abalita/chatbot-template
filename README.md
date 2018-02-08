@@ -11,7 +11,7 @@ cd <project-name>
 git clone https://github.com/abalita/chatbot-template.git .
 
 # Install dependencies and run your app
-npm install-all
+npm run install-all
 npm run dev
 
 # Create & deploy to heroku
