@@ -31,8 +31,8 @@ require('./api/utils/db_helper').connect();
 //Routes
 //#############################################################################
 app.use('/api', require('./api/routes/api_router'))
-app.use('/setup', require('./api/routes/fb_setup_router'));
-app.use('/webhook', require('./api/routes/fb_webhook_router'));
+app.use('/facebook/setup', require('./api/routes/fb_setup_router'));
+app.use('/facebook/webhook', require('./api/routes/fb_webhook_router'));
 
 
 

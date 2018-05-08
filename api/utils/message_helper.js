@@ -50,7 +50,6 @@ function getResponse(postback, sender, callback) {
     var messages = [];
     // find responses
     ChatbotResponseModel.find({ "postback": postback }, (err, responses) => {
-        console.log("####### " + JSON.stringify(responses));
         var count = 0;
         responses.forEach(function (resp, index, array) {            
             var args = {};

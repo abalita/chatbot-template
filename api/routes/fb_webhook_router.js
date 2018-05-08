@@ -71,7 +71,6 @@ webhook_router.route("/")
                     && keyword !== undefined
                     && keyword !== "") {
                     message_helper.getResponse(keyword, sender, (msgs) => {
-                        console.log("############# " + JSON.stringify(msgs));
                         if (msgs.length == 0) {
                             res.sendStatus(200);
                         } else {

@@ -83,8 +83,7 @@ function setupGetStarted(callback) {
     };
 
     axios.post(
-        constants_helper.fb_thread_url,
-        qs.stringify({ access_token: constants_helper.fb_token }),
+        constants_helper.fb_thread_url +"?"+qs.stringify({ access_token: constants_helper.fb_token }),
         json
     ).then((response) => {
         callback(response.data);
@@ -104,12 +103,12 @@ function setupPersistentMenu(callback) {
                 "composer_input_disabled": true,
                 "call_to_actions": [
                     {
-                        "title": "Get Started 🏁",
+                        "title": "Get Started",
                         "type": "postback",
                         "payload": "GET_STARTED"
                     },
                     {
-                        "title": "Help 🤔",
+                        "title": "HELP",
                         "type": "postback",
                         "payload": "HELP"
                     },
@@ -123,8 +122,7 @@ function setupPersistentMenu(callback) {
     }
 
     axios.post(
-        constants_helper.fb_messenger_profile,
-        qs.stringify({ access_token: constants_helper.fb_token }),
+        constants_helper.fb_messenger_profile  +"?"+ qs.stringify({ access_token: constants_helper.fb_token }),
         json
     ).then((response) => {
         callback(response.data);
@@ -143,8 +141,7 @@ function setupWhitelist(callback) {
     }
 
     axios.post(
-        constants_helper.fb_thread_url,
-        qs.stringify({ access_token: constants_helper.fb_token }),
+        constants_helper.fb_thread_url +"?"+ qs.stringify({ access_token: constants_helper.fb_token }),
         json
     ).then((response) => {
         callback(response.data);
