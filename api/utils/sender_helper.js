@@ -16,7 +16,6 @@ function sendSeriesMessages(sender, messages, callback_output) {
         function (itr, callback) {
             sendMessageCallback(sender, messages[itr], callback);
         }, function (err) {
-            console.log('Error sending messages: ', err);
             callback_output();
         });
 
