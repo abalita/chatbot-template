@@ -9,6 +9,7 @@ var sender_helper = require('../utils/sender_helper.js');
 var reply_helper = require('../utils/reply_helper.js');
 var constants = require('../utils/constants_helper');
 
+var ChatbotResponse = require('../models/ChatbotResponse');
 var service_facade = require('../services/service_facade');
 
 webhook_router.route("/")
