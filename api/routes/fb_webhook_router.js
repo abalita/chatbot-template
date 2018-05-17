@@ -114,7 +114,7 @@ webhook_router.route("/")
  * @param {Object} callback_params 
  * @param {Function} callback_ouput 
  */
-function processRequest(sender, text, callback_params, callback_ouput) {
+function processRequest(sender, text, callback_params, callback_output) {
 
     var messages = [];
     ChatbotResponse.find({ postback: text })
