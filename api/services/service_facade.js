@@ -86,7 +86,7 @@ var req_params = [
 // temporary workaround
 function processURL(sender, api, callback_params) {
 
-    api.url = api.url.replaceAll("{#fb_sender}", session.sender);
+    api.url = api.url.replaceAll("{#fb_sender}", sender);
     api.url = api.url.replaceAll("{#fb_token}", process.env.FB_TOKEN);
 
     // if (session.message.location) {
