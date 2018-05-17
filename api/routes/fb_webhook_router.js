@@ -12,6 +12,8 @@ var constants = require('../utils/constants_helper');
 var ChatbotResponse = require('../models/ChatbotResponse');
 var service_facade = require('../services/service_facade');
 
+var async = require('async');
+
 webhook_router.route("/")
 
     // fb verification
