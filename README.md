@@ -38,3 +38,13 @@ FB_VERIFY_TOKEN - webhook validation token (any keyword without spaces)
 ```
 
 ### Setup your FB page and App then connect webhook
+
+
+### run setup
+```bash
+Once deployed in heroku and env variables are already setup
+on your browser acess the following urls:
+https://<domain>/facebook/setup
+https://<domain>/facebook/setup/db
+
+```

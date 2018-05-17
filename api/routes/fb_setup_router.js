@@ -61,7 +61,6 @@ fb_setup_router.route("/whiteList")
  */
 fb_setup_router.route("/db")
     .get((req, res) => {
-
         message_helper.init((response) => {
             res.send(response);
         })
