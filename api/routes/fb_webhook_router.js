@@ -5,11 +5,11 @@ var path = require('path');
 var webhook_router = express.Router();
 
 // init helpers
-var args_helper = require('../utils/args_helper.js');
-var message_helper = require('../utils/message_helper.js');
 var sender_helper = require('../utils/sender_helper.js');
 var reply_helper = require('../utils/reply_helper.js');
 var constants = require('../utils/constants_helper');
+
+var service_facade = require('../services/service_facade');
 
 webhook_router.route("/")
 
@@ -70,26 +70,16 @@ webhook_router.route("/")
                 if (keyword !== null
                     && keyword !== undefined
                     && keyword !== "") {
-                    message_helper.getResponse(keyword, sender, (msgs) => {
-                        if (msgs.length == 0) {
-                            res.sendStatus(200);
-                        } else {
-                            var messages = [];
-                            msgs.forEach((msg) => {
-                                messages.push(msg.message);
-                            });
-                            sender_helper.sendSeriesMessages(sender, messages, (resp) => {
-                                res.sendStatus(200);
-                            });
-                        }
-                    });
+                    processRequest(sender, keyword, null, ()=>{
+                        res.sendStatus(200);
+                    })
                 } else {
                     res.sendStatus(200);
                 }
             }
 
         } else if (event.changes) {
-            console.log("############ feed post received");
+            // feed received
             var feed = event.changes[0].value;
             var post_id = feed.post_id;
             var comment_id = feed.comment_id;
@@ -110,6 +100,82 @@ webhook_router.route("/")
         }
 
     });
+
+
+/**
+ * 
+ * @description handles response formatting
+ * 
+ * @param {String} sender 
+ * @param {String} text 
+ * @param {Object} callback_params 
+ * @param {Function} callback_ouput 
+ */
+function processRequest(sender, text, callback_params, callback_ouput) {
+
+    var messages = [];
+    ChatbotResponse.find({ postback: text })
+        .sort({ 'index': 'ascending' })
+        .exec((err, resp) => {
+            if (typeof resp !== 'undefined' && resp.length > 0) {
+                async.forEachSeries(Object.keys(resp),
+                    (itr, callback) => {
+                        var reply = resp[itr];                        
+                        if (reply.service) {
+                            // service
+                            service_facade.callService(sender, reply,
+                                (formatted_msg, array_messages) => {
+                                    //service return an array of messages
+                                    if (array_messages) {
+                                        array_messages.forEach(array_msg => {
+                                            
+                                            messages.push(replaceKeywords(sender, array_msg));
+                                        });
+                                    } else {
+                                        messages.push(replaceKeywords(sender, formatted_msg));
+                                    }
+                                    callback();
+                                }, callback_params)
+                        } else {
+                            // send message directly
+                            messages.push(replaceKeywords(sender, reply.message));
+                            callback();
+                        }
+                    }, (err) => {                        
+                        sender_helper.sendSeriesMessages(sender, messages, (status) => {
+                            callback_output();
+                        });
+                    });
+            } else {
+                // AI catch block
+                callback_output();
+            }
+        });
+}
+
+
+/**
+ * String replace all prototype
+ */
+String.prototype.replaceAll = function (find, replace) {
+    var str = this;
+    return str.replace(new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g'), replace);
+};
+
+/**
+ * 
+ * @param {Object} message 
+ */
+function replaceKeywords(message, sender){
+
+    var message_string = JSON.stringify(message);
+
+    message_string = message_string.replaceAll("{#sender}", sender);
+    message_string = message_string.replaceAll("{#platform}", "facebook");
+
+
+    return JSON.parse(message_string);
+}
 
 module.exports = webhook_router;
 

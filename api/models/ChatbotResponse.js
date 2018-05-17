@@ -5,9 +5,6 @@ var ChatbotResponseSchema = new Schema({
         postback:   String,
         type:       String,
         service:    String,
-        quick_replies: [],
-        buttons: [],
-        message: {},
         index: Number,
         active: String
 });
