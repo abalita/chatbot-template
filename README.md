@@ -30,9 +30,10 @@ npm run deploy-heroku
 
 ### Setup env variables
 ```bash
-MONGODB_URI
-FB_TOKEN
-FB_VERIFY_TOKEN
+HOME_URL - url of the chatbot 
+MONGODB_URI - mongo db connection
+FB_TOKEN - facebook token
+FB_VERIFY_TOKEN - webhook validation token (any keyword without spaces)
 
 ```
 
