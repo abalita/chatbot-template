@@ -2,9 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ChatbotResponseSchema = new Schema({
-        postback:   String,
-        type:       String,
-        service:    String,
+        postback: String,
+        message: {},
+        type: String,
+        service: String,
         index: Number,
         active: String
 });
